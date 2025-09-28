@@ -1,0 +1,40 @@
+{
+  "homepage": "https://lifo123.site/Template",
+  "name": "template-astro",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev --host",
+    "start": "astro dev --host",
+    "build": "pnpm run build:styles && astro build",
+    "build:styles": "tailwindcss -i ./src/styles/Global.css -o ./src/styles/Final.css",
+    "preview": "astro preview",
+    "astro": "astro",
+    "deploy": "gh-pages -d build --dotfiles",
+    "predeploy": "pnpm run build"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.9.4",
+    "@astrojs/mdx": "^4.3.5",
+    "@astrojs/react": "^4.3.1",
+    "@astrojs/rss": "^4.0.12",
+    "@astrojs/sitemap": "^3.6.0",
+    "@lifo123/library": "^1.7.2",
+    "@nanostores/react": "^0.8.4",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
+    "astro": "^5.13.9",
+    "nanostores": "^0.11.4",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "pdf-lib": "^1.17.1",
+    "react-pdf": "^10.1.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.1.11",
+    "@types/node": "^22.15.34",
+    "gh-pages": "^6.3.0",
+    "tailwindcss": "^4.1.11",
+    "typescript": "^5.8.3"
+  }
+}

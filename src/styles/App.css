@@ -1,0 +1,16 @@
+.react-pdf__Page__textContent,
+.react-pdf__Page__annotations{
+  left: 50% !important;
+  transform: translateX(-50%);
+}
+
+.app-aside-left {
+  transition: width .15s ease-in-out;
+}
+.app-aside-left.active {
+  width: 340px;
+}
+
+.app-aside-left > div {
+  transition: opacity .145s ease-in-out;
+}
