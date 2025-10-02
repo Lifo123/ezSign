@@ -16,23 +16,23 @@ export async function generatePDF() {
     const firmaImage = await pdfDoc.embedJpg(firmaBytes)
     const firmaDims = firmaImage.scale(VISOR.general.scale)
 
-    
+
     for (let i = 0; i < VISOR.numPages; i++) {
         const page = pdfDoc.getPage(i);
 
         page.drawImage(firmaImage, {
-            x: ((VISOR.general.x / 100) * page.getWidth()) ,
-            y: ((VISOR.general.y / 100) * page.getHeight()) ,
+            x: (VISOR.general.x / 100) * page.getWidth() - (firmaDims.width / 2),
+            y: (VISOR.general.y / 100) * page.getHeight() - (firmaDims.height / 2),
             width: firmaDims.width,
             height: firmaDims.height,
             blendMode: VISOR.general.blendMode, //ITS OK DONT CHANGE
         });
-        
+
     }
 
     const pdfBytes = await pdfDoc.save();
     const pdfFile = new File([new Uint8Array(pdfBytes)], file!.name, { type: "application/pdf" });
-    $file.setKey('file', pdfFile)
+    $file.setKey('processFile', pdfFile)
 
 
 }

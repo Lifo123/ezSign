@@ -1,6 +1,7 @@
 ---
-import { Dialoger, Toaster } from "@lifo123/library";
 import "@Styles/Global.css";
+
+import { Dialoger, Toaster } from "@lifo123/library";
 
 interface Props {
 	title: string;
@@ -14,47 +15,46 @@ const url = site ? new URL(path, site).href : null;
 ---
 
 <script>
-    const BASE_STORAGE_KEY =
-        (window.location.pathname.split("/").filter(Boolean)[0] || "lifo/lib") +
-        "-preferences";
-    let savedPrefs = JSON.parse(localStorage.getItem(BASE_STORAGE_KEY) || "{}");
+	const BASE_STORAGE_KEY =
+		(window.location.pathname.split("/").filter(Boolean)[0] ||
+			"lifo/lib-") + "-prefs";
+	let savedPrefs = JSON.parse(localStorage.getItem(BASE_STORAGE_KEY) || "{}");
 
-    const setDarkMode = (doc: Document) => {
-        const prefersDark = window.matchMedia(
-            "(prefers-color-scheme: dark)",
-        ).matches;
+	const setDarkMode = (doc: Document) => {
+		const prefersDark = window.matchMedia(
+			"(prefers-color-scheme: dark)",
+		).matches;
 
-        const mode =
-            savedPrefs.theme === "dark" || savedPrefs.theme === "light"
-                ? savedPrefs.theme
-                : prefersDark
-                  ? "dark"
-                  : "light";
+		const mode =
+			savedPrefs.theme === "dark" || savedPrefs.theme === "light"
+				? savedPrefs.theme
+				: prefersDark
+					? "dark"
+					: "light";
 
-        doc.documentElement.classList.toggle("dark", mode === "dark");
-        doc.documentElement.classList.toggle("light", mode === "light");
-        doc.documentElement.style.colorScheme = mode;
+		doc.documentElement.classList.toggle("dark", mode === "dark");
+		doc.documentElement.classList.toggle("light", mode === "light");
+		doc.documentElement.style.colorScheme = mode;
 
-        localStorage.setItem(
-            BASE_STORAGE_KEY,
-            JSON.stringify({
-                ...savedPrefs,
-                theme: savedPrefs.theme || "system",
-                isDark: mode === "dark",
-            }),
-        );
-    };
+		localStorage.setItem(
+			BASE_STORAGE_KEY,
+			JSON.stringify({
+				...savedPrefs,
+				theme: savedPrefs.theme || "system",
+				isDark: mode === "dark",
+			}),
+		);
+	};
 
-    setDarkMode(document);
+	setDarkMode(document);
 
-    document.addEventListener("astro:before-swap", (e) =>
-        setDarkMode(e.newDocument),
-    );
-    window
-        .matchMedia("(prefers-color-scheme: dark)")
-        .addEventListener("change", () => setDarkMode(document));
+	document.addEventListener("astro:before-swap", (e) =>
+		setDarkMode(e.newDocument),
+	);
+	window
+		.matchMedia("(prefers-color-scheme: dark)")
+		.addEventListener("change", () => setDarkMode(document));
 </script>
-
 
 <html lang="en" translate="no">
 	<head>
@@ -63,7 +63,10 @@ const url = site ? new URL(path, site).href : null;
 		<meta name="description" content={description} />
 
 		<meta charset="utf-8" />
-		<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+		<meta
+			name="robots"
+			content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+		/>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<!--Fonts -->
 
@@ -91,7 +94,7 @@ const url = site ? new URL(path, site).href : null;
 		<link rel="apple-touch-icon" href="./Flifo.svg" />
 	</head>
 	<body class="f-col">
-		<Toaster client:only="react" />
+		<Toaster client:only="react" position="bottom-right" />
 		<Dialoger client:only="react" />
 		<slot />
 	</body>

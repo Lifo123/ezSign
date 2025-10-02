@@ -27,7 +27,7 @@ export default function UploadBTN() {
 
     return (
         <>
-            <div className="border-dashed border bg-lifo-bg-secondary border-lifo-border rounded-xl px-4 py-6 f-col f-center gap-3 max-w-sm fs-2 w-full mb-5">
+            <div className="border-dashed border bg-lifo-bg-secondary border-lifo-border-high rounded-xl px-4 py-6 f-col f-center gap-3 max-w-sm fs-2 w-full mb-5">
                 <label className="f-col f-center gap-5" htmlFor="file" >
                     <button
                         onClick={() => {

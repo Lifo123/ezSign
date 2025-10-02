@@ -7,8 +7,8 @@ import tailwindcss from '@tailwindcss/vite';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://lifo123.github.io/Template',
-  base: '/Template/',
+  site: 'https://lifo123.github.io/ezSign/',
+  base: '/ezSign/',
   integrations: [react(), mdx(), sitemap()],
   outDir: 'build',
   build: {

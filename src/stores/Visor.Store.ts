@@ -1,4 +1,4 @@
-import { LocalPrefs, projectName, } from "@lifo123/library/Stores";
+import { ManageLocal } from "@lifo123/library/utils";
 import { generatePDF } from "@Utils/GeneratePDF.utils";
 import { deepMap } from "nanostores";
 import type { VisorStore } from "src/Types/Visor.Types";
@@ -6,22 +6,25 @@ import type { VisorStore } from "src/Types/Visor.Types";
 const isBrowser = typeof window !== "undefined";
 
 const initialState = {
-    asideLeftState: false,
+    asideLeftState: true,
+
+    asideRightState: false,
 
     page: 1,
     numPages: 1,
-    isUpload: false,
+
+    isUpload: true,
     isLoading: false,
     variationRange: 0,
 
     general: {
         blendMode: "Multiply",
-        scale: isBrowser ? LocalPrefs.get('scale') ?? 0.3 : 0.3,
-        x: isBrowser ? LocalPrefs.get('x') ?? 0 : 0,
-        y: isBrowser ? LocalPrefs.get('y') ?? 0 : 0,
+        scale: isBrowser ? ManageLocal.prefs.get('general.scale') ?? 0.3 : 0.3,
+        x: isBrowser ? ManageLocal.prefs.get('general.x') ?? 0 : 0,
+        y: isBrowser ? ManageLocal.prefs.get('general.y') ?? 0 : 0,
     }
 
-}
+} as VisorStore
 
 export const $visor = deepMap<VisorStore>(initialState)
 
@@ -30,7 +33,7 @@ export const $visor = deepMap<VisorStore>(initialState)
 if (isBrowser) {
 
     $visor.subscribe((value) => {
-        LocalPrefs.set(value)
+        ManageLocal.prefs.set(value)
     })
 }
 

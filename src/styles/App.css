@@ -1,16 +1,24 @@
-.react-pdf__Page__textContent,
-.react-pdf__Page__annotations{
+@import "./AppStyles/Aside.css";
+/* .react-pdf__Page__textContent,
+.react-pdf__Page__annotations {
   left: 50% !important;
   transform: translateX(-50%);
+} */
+
+.page-container{
+  width: 100%;
+  max-width: 595px;
 }
 
-.app-aside-left {
-  transition: width .15s ease-in-out;
-}
-.app-aside-left.active {
-  width: 340px;
+.a4 {
+  width: 100%;
+  max-width: 595px;
+  aspect-ratio: 210 / 297;
 }
 
-.app-aside-left > div {
-  transition: opacity .145s ease-in-out;
+.btn-icon {
+  width: 24px;
+  height: 24px;
+  color: var(--color-lifo-text);
+  cursor: pointer;
 }

@@ -3,10 +3,12 @@ import { map } from "nanostores";
 
 interface FileStore {
     file: File | null;
+    processFile: File | null;
 }
 
 const InitialState: FileStore = {
-    file: null
+    file: null,
+    processFile: null,
 }
 
 
