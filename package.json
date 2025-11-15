@@ -1,6 +1,6 @@
 {
-  "homepage": "https://lifo123.site/ezSign/",
-  "name": "template-astro",
+  "homepage": "https://lifo123.site/Signer/",
+  "name": "Signer",
   "type": "module",
   "version": "0.0.1",
   "scripts": {
@@ -18,23 +18,23 @@
     "@astrojs/react": "^4.3.1",
     "@astrojs/rss": "^4.0.12",
     "@astrojs/sitemap": "^3.6.0",
-    "@lifo123/library": "^1.7.4",
+    "@lifo123/library": "^1.8.0",
     "@nanostores/react": "^0.8.4",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
     "astro": "^5.13.9",
     "nanostores": "^0.11.4",
     "pdf-lib": "^1.17.1",
+    "public-icons": "^0.0.8",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
+    "react-draggable": "^4.5.0",
     "react-pdf": "^10.1.0"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.1.11",
     "@types/node": "^22.15.34",
-    "autoprefixer": "^10.4.21",
     "gh-pages": "^6.3.0",
-    "postcss": "^8.5.6",
     "tailwindcss": "^4.1.11",
     "typescript": "^5.8.3"
   }

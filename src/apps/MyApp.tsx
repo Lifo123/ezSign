@@ -1,18 +1,23 @@
+import { lazy, Suspense } from 'react'
 import { useStore } from "@nanostores/react";
-import UploadBTN from "./Upload/UploadBTN";
-import VisorApp from "./Visor/VisorApp";
-import { $visor } from "@Stores/Visor.Store";
+import { $appInterface } from "@Stores/AppInterface.store";
+import { DarkmodeDrop, PageLoading } from "@lifo123/library";
 
+const VisorApp = lazy(() => import("./Visor/VisorApp"));
+const UploadBTN = lazy(() => import("./Upload/UploadBTN"));
 
 export default function Count(props: any) {
-    const VISOR = useStore($visor)
+    const VISOR = useStore($appInterface, { keys: ['currentPage'] })
 
     return (
-        <main className="w-full h-full fixed top-0 f-col f-center">
-            {VISOR.isUpload ?
-                <VisorApp />
-                : <UploadBTN />
+        <>
+            {
+                VISOR.currentPage === 'upload' ?
+                    <Suspense fallback={<PageLoading />} children={<UploadBTN />} />
+                    : VISOR.currentPage === 'visor' ?
+                        <Suspense fallback={<PageLoading />} children={<VisorApp />} />
+                        : null
             }
-        </main>
+        </>
     )
 }

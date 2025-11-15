@@ -1,24 +1,20 @@
-@import "./AppStyles/Aside.css";
-/* .react-pdf__Page__textContent,
-.react-pdf__Page__annotations {
-  left: 50% !important;
-  transform: translateX(-50%);
-} */
-
-.page-container{
-  width: 100%;
-  max-width: 595px;
+.app-aside {
+  width: 0px;
+  transition: width .2s ease, opacity .25s ease, display .25s ease;
+  overflow: hidden;
+  opacity: 0;
+  user-select: none;
 }
 
-.a4 {
-  width: 100%;
-  max-width: 595px;
-  aspect-ratio: 210 / 297;
+.visor-app[data-aside-left="true"] .app-aside {
+  width: 520px;
+  opacity: 1;
 }
 
-.btn-icon {
-  width: 24px;
-  height: 24px;
-  color: var(--color-lifo-text);
-  cursor: pointer;
+.visor-render-file{
+  width: 795px;
+  height: max-content;
+  min-height: 880px;
+  display: flex;
+  justify-content: center;
 }

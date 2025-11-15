@@ -1,7 +1,7 @@
 ---
 import "@Styles/Global.css";
 
-import { Dialoger, Toaster } from "@lifo123/library";
+import { DarkmodeDrop, DarkmodeIcon, Toaster } from "@lifo123/library";
 
 interface Props {
 	title: string;
@@ -15,47 +15,45 @@ const url = site ? new URL(path, site).href : null;
 ---
 
 <script>
-	const BASE_STORAGE_KEY =
-		(window.location.pathname.split("/").filter(Boolean)[0] ||
-			"lifo/lib-") + "-prefs";
-	let savedPrefs = JSON.parse(localStorage.getItem(BASE_STORAGE_KEY) || "{}");
+    const BASE_STORAGE_KEY =
+        (window.location.pathname.split("/").filter(Boolean)[0] ||
+            "lifo/lib-") + "-prefs";
+    let savedPrefs = JSON.parse(localStorage.getItem(BASE_STORAGE_KEY) || "{}");
 
-	const setDarkMode = (doc: Document) => {
-		const prefersDark = window.matchMedia(
-			"(prefers-color-scheme: dark)",
-		).matches;
+    const setDarkMode = (doc: Document) => {
+        const prefersDark = window.matchMedia(
+            "(prefers-color-scheme: dark)",
+        ).matches;
 
-		const mode =
-			savedPrefs.theme === "dark" || savedPrefs.theme === "light"
-				? savedPrefs.theme
-				: prefersDark
-					? "dark"
-					: "light";
+        const mode =
+            savedPrefs.theme === "dark" || savedPrefs.theme === "light"
+                ? savedPrefs.theme
+                : prefersDark
+                  ? "dark"
+                  : "light";
 
-		doc.documentElement.classList.toggle("dark", mode === "dark");
-		doc.documentElement.classList.toggle("light", mode === "light");
-		doc.documentElement.style.colorScheme = mode;
+        doc.documentElement.classList.toggle("dark", mode === "dark");
+        doc.documentElement.classList.toggle("light", mode === "light");
 
-		localStorage.setItem(
-			BASE_STORAGE_KEY,
-			JSON.stringify({
-				...savedPrefs,
-				theme: savedPrefs.theme || "system",
-				isDark: mode === "dark",
-			}),
-		);
-	};
+        localStorage.setItem(
+            BASE_STORAGE_KEY,
+            JSON.stringify({
+                ...savedPrefs,
+                theme: savedPrefs.theme || "system",
+                isDark: mode === "dark",
+            }),
+        );
+    };
 
-	setDarkMode(document);
+    setDarkMode(document);
 
-	document.addEventListener("astro:before-swap", (e) =>
-		setDarkMode(e.newDocument),
-	);
-	window
-		.matchMedia("(prefers-color-scheme: dark)")
-		.addEventListener("change", () => setDarkMode(document));
+    document.addEventListener("astro:before-swap", (e) =>
+        setDarkMode(e.newDocument),
+    );
+    window
+        .matchMedia("(prefers-color-scheme: dark)")
+        .addEventListener("change", () => setDarkMode(document));
 </script>
-
 <html lang="en" translate="no">
 	<head>
 		<title>{title}</title>
@@ -68,7 +66,6 @@ const url = site ? new URL(path, site).href : null;
 			content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
 		/>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<!--Fonts -->
 
 		<!-- OpenGraph Tags -->
 		<meta property="og:title" content={title} />
@@ -93,9 +90,17 @@ const url = site ? new URL(path, site).href : null;
 		<link rel="icon" href="./Flifo.svg" />
 		<link rel="apple-touch-icon" href="./Flifo.svg" />
 	</head>
-	<body class="f-col">
-		<Toaster client:only="react" position="bottom-right" />
-		<Dialoger client:only="react" />
-		<slot />
+	<body class="f-col text-gray-12 w-screen h-screen o-hidden">
+		<header class="f-row px-4 h-12 items-center justify-between z-50">
+			<h3 class="fs-16 fw-600">Signer</h3>
+			<div class="f-row gap-2 f-center">
+				<DarkmodeIcon client:only="react" />
+				<DarkmodeDrop client:only="react" />
+			</div>
+		</header>
+		<main class="f-col f-center f-grow relative w-full h-[calc(100vh-48px)]">
+			<slot />
+		</main>
+		<Toaster client:only="react" placement="bottom-right" />
 	</body>
 </html>

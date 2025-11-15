@@ -1,38 +1,46 @@
-import { $file } from "@Stores/FileStore";
-import { $visor } from "@Stores/Visor.Store";
-import { PDFDocument } from "pdf-lib";
+import { $files } from "@Stores/File.store";
+import { $appInterface } from "@Stores/AppInterface.store";
+import { PDFDocument, PageSizes } from "pdf-lib"; // Importa PageSizes
 
 export async function generatePDF() {
-    const file = $file.get().file
-    const VISOR = $visor.get()
+    const { pdf } = $appInterface.get() as any;
+    const { originalFile } = $files.get();
 
-    const doc = await file?.arrayBuffer()
-    const firmaBytes = await fetch('images/firma_001.jpg').then((res) => res.arrayBuffer())
+    if (!pdf || !originalFile) {
+        console.error("Faltan coordenadas o el archivo original");
+        return;
+    }
 
-    if (!doc) return;
+    const firmaBytes = await fetch('images/firma_001.jpg').then((res) => res.arrayBuffer());
+    const originalFileBytes = await originalFile.arrayBuffer();
 
-    const pdfDoc = await PDFDocument.load(doc);
+    const pdfDoc = await PDFDocument.load(originalFileBytes);
 
-    const firmaImage = await pdfDoc.embedJpg(firmaBytes)
-    const firmaDims = firmaImage.scale(VISOR.general.scale)
+    const firmaImage = await pdfDoc.embedJpg(firmaBytes);
 
+    const factor = 0.75;
+    const pdf_x = pdf?.x * factor;
+    const pdf_y = pdf?.y * factor;
+    const pdf_width = firmaImage.width * factor;
+    const pdf_height = firmaImage.height * factor;
 
-    for (let i = 0; i < VISOR.numPages; i++) {
-        const page = pdfDoc.getPage(i);
+    const pages = pdfDoc.getPages();
+
+    for (const page of pages) {
+        const { height } = page.getSize();
 
         page.drawImage(firmaImage, {
-            x: (VISOR.general.x / 100) * page.getWidth() - (firmaDims.width / 2),
-            y: (VISOR.general.y / 100) * page.getHeight() - (firmaDims.height / 2),
-            width: firmaDims.width,
-            height: firmaDims.height,
-            blendMode: VISOR.general.blendMode, //ITS OK DONT CHANGE
+            x: pdf_x,
+            y: (height - pdf_y) - pdf_height,
+            width: pdf_width,
+            height: pdf_height,
+            blendMode: 'Multiply' as any,
         });
-
     }
 
     const pdfBytes = await pdfDoc.save();
-    const pdfFile = new File([new Uint8Array(pdfBytes)], file!.name, { type: "application/pdf" });
-    $file.setKey('processFile', pdfFile)
+    const pdfFile = new File([new Uint8Array(pdfBytes)], originalFile.name, { type: "application/pdf" });
 
-
+    $files.setKey('processedFile', pdfFile);
+    $appInterface.setKey('visor.isImgVisible', false)
 }
