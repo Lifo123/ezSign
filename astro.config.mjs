@@ -7,10 +7,8 @@ import tailwindcss from '@tailwindcss/vite';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://lifo123.github.io/Signer/',
-  base: '/Signer/',
   integrations: [react(), mdx(), sitemap()],
-  outDir: 'build',
+  outDir: 'dist',
   build: {
     assets: 'assets',
   },
