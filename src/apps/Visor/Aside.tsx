@@ -3,6 +3,8 @@
 import { Button, ButtonUpload } from "@lifo123/library"
 import { useStore } from "@nanostores/react"
 import { $appInterface } from "@Stores/AppInterface.store"
+import React from "react"
+import { formatTimeAgo } from "@Utils/formatTimeago";
 
 
 interface AsideProps {
@@ -10,7 +12,7 @@ interface AsideProps {
 }
 
 export function Aside({ ...props }: AsideProps) {
-    const INTERFACE = useStore($appInterface, { keys: ['asideLeft.isOpen'] })
+    const INTERFACE = useStore($appInterface, { keys: ['asideLeft'] })
 
     return (
         <aside className="app-aside f-col no-wrap text-nowrap relative ">
@@ -25,26 +27,63 @@ export function Aside({ ...props }: AsideProps) {
                 </div>
                 <ul className="f-col gap-4">
                     <li className="fw-600 fs-14 text-gray-11">Last used</li>
-                    <li className="p-4 f-row justify-between h-max items-center rounded-lg bg-gray-2">
-                        <div className="f-col justify-between align-start gap-3">
-                            <div className="f-col text-gray-11 fs-14">
-                                <h4 className="text-gray-12 fs-14 fw-600">
-                                    Document name.pdf <span className="text-gray-11 fw-400 fs-14 ml-2">·<span className="ml-2">3h ago</span></span>
-                                </h4>
-                                <p>Lorem ipsum dolor, sit amet conscet.</p>
-                            </div>
-                            <Button className={'py-1.5 px-4 fs-13 fw-500 pointer btn-third rounded-md w-max'}>
-                                Select
-                            </Button>
-                        </div>
-                        <img className="bg-gray-6 rounded-lg o-hidden bg-cover h-[86px] w-[170px]" />
-                    </li>
+                    {
+                        INTERFACE?.asideLeft?.items?.map((item, i) => (
+                            <li className="p-4 f-row justify-between h-max items-center rounded-lg bg-gray-2 select" key={i}>
+                                <div className="f-col justify-between align-start gap-3">
+                                    <div className="f-col text-gray-11 fs-14">
+                                        <h4 className="text-gray-12 fs-14 fw-600">
+                                            {item?.name}
+                                            <span className="text-gray-11 fw-400 fs-14 ml-2">
+                                                ·
+                                                <span className="ml-2">
+                                                    {formatTimeAgo(item.lastUsed as number)}
+                                                </span>
+                                            </span>
+                                        </h4>
+                                        <p>{item?.description}</p>
+                                    </div>
+                                    <Button className={'py-1.5 px-4 fs-13 fw-500 pointer btn-third rounded-md w-max'}
+                                        onPress={() => { $appInterface.setKey('asideLeft.currentItem', item) }}
+                                    >
+                                        Select
+                                    </Button>
+                                </div>
+                                <img src={item?.url || ''} className="bg-gray-6 rounded-lg o-hidden bg-cover h-[86px] w-[170px] object-cover bg-center" height={86} width={170} />
+                            </li>
+                        ))
+                    }
 
                     <li className="p-4 f-col f-center h-32 rounded-lg border-dashed border border-gray-6">
                         <ButtonUpload
                             className="btn btn-secondary rounded-md"
                             onUpload={(file) => {
-                                console.log(file);
+                                const blobUrl = URL.createObjectURL(file);
+                                const img = new Image();
+
+                                img.onload = () => {
+                                    const realWidth = img.width;
+                                    const realHeight = img.height;
+
+                                    const newItem = {
+                                        name: file.name,
+                                        description: 'Uploaded on ' + new Date().toLocaleDateString(),
+                                        lastUsed: new Date().getTime(),
+                                        url: blobUrl,
+                                        width: realWidth,   
+                                        height: realHeight
+                                    };
+
+                                    const currentItems = $appInterface.get()?.asideLeft?.items || [];
+                                    const updatedItems = [newItem, ...currentItems];
+
+                                    $appInterface.setKey('asideLeft.items', updatedItems.slice(0, 3));
+                                    $appInterface.setKey('asideLeft.currentItem', newItem); 
+                                    $appInterface.setKey('pdf.width', realWidth);
+                                    $appInterface.setKey('pdf.height', realHeight);
+                                };
+
+                                img.src = blobUrl;
                             }}
                             accept={['jpg', 'png']}
                         />

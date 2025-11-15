@@ -53,12 +53,12 @@ importers:
       react-dom:
         specifier: ^19.1.0
         version: 19.1.0(react@19.1.0)
-      react-draggable:
-        specifier: ^4.5.0
-        version: 4.5.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       react-pdf:
         specifier: ^10.1.0
         version: 10.1.0(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      react-rnd:
+        specifier: ^10.5.2
+        version: 10.5.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
     devDependencies:
       '@tailwindcss/vite':
         specifier: ^4.1.11
@@ -1816,6 +1816,10 @@ packages:
     resolution: {integrity: sha512-3Pe/CF1Nn94hyhIYpjtiLhdCoEoz0DqQ+988E9gmeEdQZlojxnOb74wctFyuwWQHzqyf9X7C7MG8juUpqBJT8w==, tarball: https://registry.npmjs.org/clone/-/clone-2.1.2.tgz}
     engines: {node: '>=0.8'}
 
+  clsx@1.2.1:
+    resolution: {integrity: sha512-EcR6r5a8bj6pu3ycsa/E/cKVGuTgZJZdsyUYHOksG/UHIiKfjxzRxYJpyVBwYaQeOvghal9fcc4PidlgzugAQg==, tarball: https://registry.npmjs.org/clsx/-/clsx-1.2.1.tgz}
+    engines: {node: '>=6'}
+
   clsx@2.1.1:
     resolution: {integrity: sha512-eYm0QWBtUrBWZWG0d386OGAw16Z995PiOVo2B7bjWSbHedGl5e0ZWaq65kOGgUSNesEIDkB9ISbTg/JK9dhCZA==, tarball: https://registry.npmjs.org/clsx/-/clsx-2.1.1.tgz}
     engines: {node: '>=6'}
@@ -2662,6 +2666,12 @@ packages:
   radix3@1.1.2:
     resolution: {integrity: sha512-b484I/7b8rDEdSDKckSSBA8knMpcdsXudlE/LNL639wFoHKwLbEkQFZHWEYwDC0wa0FKUcCY+GAF73Z7wxNVFA==, tarball: https://registry.npmjs.org/radix3/-/radix3-1.1.2.tgz}
 
+  re-resizable@6.11.2:
+    resolution: {integrity: sha512-2xI2P3OHs5qw7K0Ud1aLILK6MQxW50TcO+DetD9eIV58j84TqYeHoZcL9H4GXFXXIh7afhH8mv5iUCXII7OW7A==, tarball: https://registry.npmjs.org/re-resizable/-/re-resizable-6.11.2.tgz}
+    peerDependencies:
+      react: ^16.13.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
+      react-dom: ^16.13.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
+
   react-aria-components@1.13.0:
     resolution: {integrity: sha512-t1mm3AVy/MjUJBZ7zrb+sFC5iya8Vvw3go3mGKtTm269bXGZho7BLA4IgT+0nOS3j+ku6ChVi8NEoQVFoYzJJA==, tarball: https://registry.npmjs.org/react-aria-components/-/react-aria-components-1.13.0.tgz}
     peerDependencies:
@@ -2679,8 +2689,8 @@ packages:
     peerDependencies:
       react: ^19.1.0
 
-  react-draggable@4.5.0:
-    resolution: {integrity: sha512-VC+HBLEZ0XJxnOxVAZsdRi8rD04Iz3SiiKOoYzamjylUcju/hP9np/aZdLHf/7WOD268WMoNJMvYfB5yAK45cw==, tarball: https://registry.npmjs.org/react-draggable/-/react-draggable-4.5.0.tgz}
+  react-draggable@4.4.6:
+    resolution: {integrity: sha512-LtY5Xw1zTPqHkVmtM3X8MUOxNDOUhv/khTgBgrUvwaS064bwVvxT+q5El0uUFNx5IEPKXuRejr7UqLwBIg5pdw==, tarball: https://registry.npmjs.org/react-draggable/-/react-draggable-4.4.6.tgz}
     peerDependencies:
       react: '>= 16.3.0'
       react-dom: '>= 16.3.0'
@@ -2701,6 +2711,12 @@ packages:
   react-refresh@0.17.0:
     resolution: {integrity: sha512-z6F7K9bV85EfseRCp2bzrpyQ0Gkw1uLoCel9XBVWPg/TjRj94SkJzUTGfOa4bs7iJvBWtQG0Wq7wnI0syw3EBQ==, tarball: https://registry.npmjs.org/react-refresh/-/react-refresh-0.17.0.tgz}
     engines: {node: '>=0.10.0'}
+
+  react-rnd@10.5.2:
+    resolution: {integrity: sha512-0Tm4x7k7pfHf2snewJA8x7Nwgt3LV+58MVEWOVsFjk51eYruFEa6Wy7BNdxt4/lH0wIRsu7Gm3KjSXY2w7YaNw==, tarball: https://registry.npmjs.org/react-rnd/-/react-rnd-10.5.2.tgz}
+    peerDependencies:
+      react: '>=16.3.0'
+      react-dom: '>=16.3.0'
 
   react-stately@3.42.0:
     resolution: {integrity: sha512-lYt2o1dd6dK8Bb4GRh08RG/2u64bSA1cqtRqtw4jEMgxC7Q17RFcIumBbChErndSdLzafEG/UBwV6shOfig6yw==, tarball: https://registry.npmjs.org/react-stately/-/react-stately-3.42.0.tgz}
@@ -2947,6 +2963,9 @@ packages:
 
   tslib@1.14.1:
     resolution: {integrity: sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==, tarball: https://registry.npmjs.org/tslib/-/tslib-1.14.1.tgz}
+
+  tslib@2.6.2:
+    resolution: {integrity: sha512-AEYxH93jGFPn/a2iVAwW87VuUIkR1FVUKB77NwMF7nBTDkDrrT/Hpt/IrCJ0QXhW27jTBDcf5ZY7w6RiqTMw2Q==, tarball: https://registry.npmjs.org/tslib/-/tslib-2.6.2.tgz}
 
   tslib@2.8.1:
     resolution: {integrity: sha512-oJFu94HQb+KVduSUQL7wnpmqnfmLsOA/nAh6b6EH0wCEoK0/mPeXU6c3wKDV83MkOuHPRHtSXKKU99IBazS/2w==, tarball: https://registry.npmjs.org/tslib/-/tslib-2.8.1.tgz}
@@ -5897,6 +5916,8 @@ snapshots:
 
   clone@2.1.2: {}
 
+  clsx@1.2.1: {}
+
   clsx@2.1.1: {}
 
   collapse-white-space@2.1.0: {}
@@ -7095,6 +7116,11 @@ snapshots:
 
   radix3@1.1.2: {}
 
+  re-resizable@6.11.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
+    dependencies:
+      react: 19.1.0
+      react-dom: 19.1.0(react@19.1.0)
+
   react-aria-components@1.13.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
     dependencies:
       '@internationalized/date': 3.10.0
@@ -7181,9 +7207,9 @@ snapshots:
       react: 19.1.0
       scheduler: 0.26.0
 
-  react-draggable@4.5.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
+  react-draggable@4.4.6(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
     dependencies:
-      clsx: 2.1.1
+      clsx: 1.2.1
       prop-types: 15.8.1
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
@@ -7206,6 +7232,14 @@ snapshots:
       '@types/react': 19.1.8
 
   react-refresh@0.17.0: {}
+
+  react-rnd@10.5.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
+    dependencies:
+      re-resizable: 6.11.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      react: 19.1.0
+      react-dom: 19.1.0(react@19.1.0)
+      react-draggable: 4.4.6(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      tslib: 2.6.2
 
   react-stately@3.42.0(react@19.1.0):
     dependencies:
@@ -7586,6 +7620,8 @@ snapshots:
       typescript: 5.8.3
 
   tslib@1.14.1: {}
+
+  tslib@2.6.2: {}
 
   tslib@2.8.1: {}
 

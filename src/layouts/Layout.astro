@@ -17,7 +17,7 @@ const url = site ? new URL(path, site).href : null;
 <script>
     const BASE_STORAGE_KEY =
         (window.location.pathname.split("/").filter(Boolean)[0] ||
-            "lifo/lib-") + "-prefs";
+            "lifo/lib-") + "prefs";
     let savedPrefs = JSON.parse(localStorage.getItem(BASE_STORAGE_KEY) || "{}");
 
     const setDarkMode = (doc: Document) => {

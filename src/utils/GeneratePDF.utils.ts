@@ -1,17 +1,18 @@
 import { $files } from "@Stores/File.store";
 import { $appInterface } from "@Stores/AppInterface.store";
 import { PDFDocument, PageSizes } from "pdf-lib"; // Importa PageSizes
+import { toast } from "@lifo123/library";
 
 export async function generatePDF() {
-    const { pdf } = $appInterface.get() as any;
+    const { pdf, asideLeft } = $appInterface.get();
     const { originalFile } = $files.get();
 
     if (!pdf || !originalFile) {
-        console.error("Faltan coordenadas o el archivo original");
+        toast.error('No file selected or the file is not valid.', { richColors: true });
         return;
     }
 
-    const firmaBytes = await fetch('images/firma_001.jpg').then((res) => res.arrayBuffer());
+    const firmaBytes = await fetch(`${asideLeft?.currentItem?.url}`).then((res) => res.arrayBuffer());
     const originalFileBytes = await originalFile.arrayBuffer();
 
     const pdfDoc = await PDFDocument.load(originalFileBytes);
@@ -19,10 +20,10 @@ export async function generatePDF() {
     const firmaImage = await pdfDoc.embedJpg(firmaBytes);
 
     const factor = 0.75;
-    const pdf_x = pdf?.x * factor;
-    const pdf_y = pdf?.y * factor;
-    const pdf_width = firmaImage.width * factor;
-    const pdf_height = firmaImage.height * factor;
+    const pdf_x = pdf?.x as number * factor;
+    const pdf_y = pdf?.y as number * factor;
+    const pdf_width = pdf?.width as number * factor;
+    const pdf_height = pdf?.height as number * factor;
 
     const pages = pdfDoc.getPages();
 
@@ -42,5 +43,5 @@ export async function generatePDF() {
     const pdfFile = new File([new Uint8Array(pdfBytes)], originalFile.name, { type: "application/pdf" });
 
     $files.setKey('processedFile', pdfFile);
-    $appInterface.setKey('visor.isImgVisible', false)
+    //$appInterface.setKey('visor.isImgVisible', false)
 }

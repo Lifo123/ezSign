@@ -9,15 +9,17 @@ import { Icon } from "public-icons";
 import React from "react";
 
 export default function MainHeader() {
-    const INTERFACE = useStore($appInterface, { keys: ['asideLeft.isOpen'] })
+    const { asideLeft, visor } = useStore($appInterface, {
+        keys: [
+            'asideLeft.isOpen', 'visor.isDraggSelected'
+        ]
+    })
     const { state, processedFile } = useStore($files, { keys: ['state.currentPage', 'processedFile'] })
 
     React.useEffect(() => {
         if (!state?.name) return
 
         const handleKeys = (e: KeyboardEvent) => {
-            console.log(e.key);
-
             if (e.key === 'ArrowRight') {
                 console.log('palante');
                 nextPage()
@@ -43,7 +45,7 @@ export default function MainHeader() {
             <div className="f-row gap-1 f-center">
                 <PressableIcon icon="panels-up" size={20} rotate={90} triggerProps={{
                     onPress: () => {
-                        $appInterface.setKey('asideLeft.isOpen', !INTERFACE?.asideLeft?.isOpen)
+                        $appInterface.setKey('asideLeft.isOpen', !asideLeft?.isOpen)
                     },
                     className: 'h-8 aspect-square hover:bg-gray-3 rounded-md flex f-center pointer mr-1'
                 }}
@@ -75,12 +77,16 @@ export default function MainHeader() {
 
             </div>
 
-            <div className="f-row gap-4">
-                <Button className={'btn-primary rounded-sm fs-14 fw-475 px-3 py-1 pointer'}
-                    onPress={generatePDF}
-                >
-                    Apply
-                </Button>
+            <div className="f-row gap-4 f-center">
+                {
+                    visor?.isDraggSelected ?
+                        <GroupTabs />
+                        : <Button className={'btn-primary rounded-sm fs-14 fw-475 px-3 py-1 pointer'}
+                            onPress={generatePDF}
+                        >
+                            Apply
+                        </Button>
+                }
                 <Menu >
                     <PressableIcon icon="ellipsis" size={20} rotate={90} triggerProps={{
                         onPress: () => {
@@ -91,7 +97,7 @@ export default function MainHeader() {
                     />
                     <MenuContent >
                         <MenuItem onPress={() => {
-                            toast.info('Opening the settings.', { richColors: true });
+                            toast.show('Setting not available');
                         }}>
                             <span className="f-row gap-2 f-center">
                                 <Icon icon='setting' size={18} />
@@ -122,6 +128,36 @@ export default function MainHeader() {
 
                 </Menu>
             </div>
+        </div>
+    )
+}
+
+
+function GroupTabs() {
+
+    const handleEsc = (e: KeyboardEvent) => {
+        if (e.key === 'Escape') {
+            $appInterface.setKey('visor.isDraggSelected', false)
+        }
+    }
+
+    React.useEffect(() => {
+        document.addEventListener('keydown', handleEsc);
+        return () => {
+            document.removeEventListener('keydown', handleEsc);
+        }
+    }, [])
+
+    return (
+        <div className="f-row gap-1">
+            <PressableIcon icon="rotate-square" size={20} triggerProps={{
+                className: 'h-8 aspect-square hover:bg-gray-3 rounded-md flex f-center pointer',
+                onPress: () => {
+                    //rotate
+                }
+            }}
+            />
+
         </div>
     )
 }

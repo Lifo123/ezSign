@@ -9,15 +9,19 @@ const initialState: InterfaceProps = {
     currentPage: 'upload',
     asideLeft: {
         isOpen: initialLocalState?.asideLeft?.isOpen || true,
+        items: [] //fetch api
     },
 
     pdf: {
         x: initialLocalState?.pdf?.x || 0,
         y: initialLocalState?.pdf?.y || 0,
+        width: initialLocalState?.pdf?.width || 0,
+        height: initialLocalState?.pdf?.height || 0,
     },
 
     visor: {
         isImgVisible: initialLocalState?.visor?.isImgVisible || true,
+        isDraggSelected: false
     }
 }
 

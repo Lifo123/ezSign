@@ -11,7 +11,18 @@
   opacity: 1;
 }
 
-.visor-render-file{
+.dragSelect {
+  outline: 3px dashed var(--color-accent-10);
+  border-radius: 2px;
+}
+
+.dragSelect > div div{
+  height: 6px;
+  aspect-ratio: 1/1;
+  background-color: var(--color-accent-10);
+}
+
+.visor-render-file {
   width: 795px;
   height: max-content;
   min-height: 880px;
